@@ -34,4 +34,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="more_filters">More Filters</string>
     <string name="title">Title</string>
+    <string name="filters">Filters</string>
+    <string name="apply_filters">Apply Filters</string>
 </resources>
