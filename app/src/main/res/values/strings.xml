@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Newcomer\'s</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="province">Province</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="property_type">Property Type</string>
+    <string name="rent">Rent</string>
+    <string name="available_from_date">Available From Date</string>
+    <string name="of_bedrooms"># of Bedrooms</string>
+    <string name="of_bathrooms"># of Bathrooms</string>
+    <string name="amenities_included">Amenities Included</string>
+    <string name="heater">Heater</string>
+    <string name="wifi">WiFi</string>
+    <string name="laundry">Laundry</string>
+    <string name="microwave">Microwave</string>
+    <string name="freeze">Freeze</string>
+    <string name="oven">Oven</string>
+    <string name="water">Water</string>
+    <string name="electricity">Electricity</string>
+    <string name="other_details">Other Details</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="photos">Photos</string>
+    <string name="upload">Upload</string>
+    <string name="submit">submit</string>
+
+    <string-array name="property_types">
+        <item>House</item>
+        <item>Apartment</item>
+        <item>Condo</item>
+        <item>Other</item>
+    </string-array>
 </resources>
