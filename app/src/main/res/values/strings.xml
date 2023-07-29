@@ -22,7 +22,7 @@
     <string name="contact_number">Contact Number</string>
     <string name="photos">Photos</string>
     <string name="upload">Upload</string>
-    <string name="submit">submit</string>
+    <string name="submit">Submit</string>
 
     <string-array name="property_types">
         <item>House</item>
@@ -36,4 +36,15 @@
     <string name="title">Title</string>
     <string name="filters">Filters</string>
     <string name="apply_filters">Apply Filters</string>
+    <string name="registration">Registration</string>
+    <string name="e_mail">E-Mail:</string>
+    <string name="user_name">User Name:</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="password">Password:</string>
+    <string name="conform_password">Conform Password:</string>
+    <string name="log_in">Log-In</string>
+    <string name="profile">Profile</string>
+    <string name="_address">Address:</string>
+    <string name="street_address">Street Address:</string>
+    <string name="save_changes">Save Changes</string>
 </resources>
