@@ -1,62 +1,50 @@
 package com.example.newcomers.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.example.newcomers.R;
+import com.example.newcomers.activities.AddRideActivity;
+import com.example.newcomers.adapters.RideListAdapter;
+import com.example.newcomers.adapters.TripListAdapter;
+import com.example.newcomers.beans.Trip;
 import com.example.newcomers.databinding.FragmentRideListBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RideListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RideListFragment extends Fragment {
-
+public class RideListFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
+    private static String TAG="RideListFragment";
     FragmentRideListBinding rideListBinding;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TripListAdapter listAdapter;
+    private List<Trip> eList = new ArrayList<>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public RideListFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RideListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RideListFragment newInstance(String param1, String param2) {
-        RideListFragment fragment = new RideListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -74,5 +62,57 @@ public class RideListFragment extends Fragment {
      * init Ride List Fragment
      */
     private void initRideListFragment() {
+        rideListBinding.actioBar.setOnMenuItemClickListener(this);
+        getTripList();
+    }
+
+    private void getTripList() {
+        db.collection("trips")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Trip trip = document.toObject(Trip.class);
+                                eList.add(trip);
+                            }
+                            bindAdapter();
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void bindAdapter() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rideListBinding.rcView.setLayoutManager(layoutManager);
+        listAdapter = new TripListAdapter(eList, getContext());
+        rideListBinding.rcView.setAdapter(listAdapter);
+        listAdapter.notifyDataSetChanged();
+
+//        RideListAdapter rideListAdapter = new RideListAdapter(this.getActivity(),eList);
+//        rideListBinding.listView.setAdapter(rideListAdapter);
+//        rideListAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * This method will be invoked when a menu item is clicked if the item itself did
+     * not already handle the event.
+     *
+     * @param item {@link MenuItem} that was clicked
+     * @return <code>true</code> if the event was handled, <code>false</code> otherwise.
+     */
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if(item.getItemId() == R.id.ridePlus)
+        {
+            Intent intent = new Intent(this.getActivity(), AddRideActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return false;
     }
 }
