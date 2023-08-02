@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Newcomer\'s</string>
+    <string name="home">Home</string>
+    <string name="ride">Ride</string>
+    <string name="acco">Accomo</string>
+    <string name="profile1">Profile</string>
+
     <string name="address">Address</string>
     <string name="city">City</string>
     <string name="province">Province</string>
