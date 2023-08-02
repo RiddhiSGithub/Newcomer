@@ -21,6 +21,12 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.RideDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AddRideActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginPage"
             android:exported="false" />
         <activity
