@@ -7,16 +7,19 @@
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
+    <include
+        android:id="@+id/actionBar"
+        layout="@layout/action_bar" />
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_weight="1">
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
@@ -24,12 +27,12 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/primary"
+        app:itemHorizontalTranslationEnabled="true"
+        app:itemIconTint="@color/secondary"
+        app:itemTextColor="@color/secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/primary"
-        app:itemIconTint="@color/secondary"
-        app:itemHorizontalTranslationEnabled="true"
-        app:itemTextColor="@color/secondary"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>
