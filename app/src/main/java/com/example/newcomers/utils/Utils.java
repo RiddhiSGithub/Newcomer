@@ -1,14 +1,18 @@
 package com.example.newcomers.utils;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.newcomers.R;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -18,7 +22,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class Utils {
     // --- show material alert dialog
@@ -116,5 +123,26 @@ public class Utils {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setTimeZone(calendar.getTimeZone());
         return sdf.format(calendar.getTime());
+    }
+
+    // --- wait for all completable futures to complete
+    public static <T> CompletableFuture<List<T>> all(List<CompletableFuture<T>> futures) {
+        CompletableFuture[] cfs = futures.toArray(new CompletableFuture[futures.size()]);
+
+        return CompletableFuture.allOf(cfs).thenApply(ignored -> futures.stream().map(CompletableFuture::join).collect(Collectors.toList()));
+    }
+
+    // --- show progress dialog
+    public static ProgressDialog showProgressDialog(Context context, String title, String message) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(title != null ? title : context.getString(R.string.app_name));
+        progressDialog.setMessage(message != null ? message : "Please wait...");
+        progressDialog.show();
+        return progressDialog;
+    }
+
+    // --- make call to the given number
+    public static void makeCall(Context context, String number) {
+        context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number)));
     }
 }

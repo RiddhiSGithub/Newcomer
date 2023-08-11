@@ -1,8 +1,7 @@
-package com.example.newcomers;
+package com.example.newcomers.adapters;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -24,11 +23,11 @@ public class AccommodationPhotoAdapter extends RecyclerView.Adapter<Accommodatio
     ArrayList<Uri> imageUris = new ArrayList<>();
     String type; // it can be "postPage" or "detailsPage" as this same adapter is being used at both pages
 
-    AccommodationPhotoAdapter(String type) {
+    public AccommodationPhotoAdapter(String type) {
         this.type = type;
     }
 
-    <T> void setList(List<T> images) {
+    public <T> void setList(List<T> images) {
         if (images == null || images.isEmpty()) {
             imageUris = null;
             imageURLs = null;

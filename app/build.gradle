@@ -52,6 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
 
     // image picker
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'
