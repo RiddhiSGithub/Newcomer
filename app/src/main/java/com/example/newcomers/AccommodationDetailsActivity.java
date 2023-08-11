@@ -27,11 +27,8 @@ public class AccommodationDetailsActivity extends AppCompatActivity {
     // --- initialize views (eg. set spinner items, set onClickListeners, etc.)
     private void initViews() {
         // --- set property photos view pager
-        ArrayList<String> images = new ArrayList<>();
-        images.add("https://fastly.picsum.photos/id/114/200/300.jpg?hmac=RsaHLtW_cVJ2g7oCf2cW_kkIsaHv3QPZgv81ZYH5-aA");
-        images.add("https://fastly.picsum.photos/id/114/200/300.jpg?hmac=RsaHLtW_cVJ2g7oCf2cW_kkIsaHv3QPZgv81ZYH5-aA");
         binding.vpPropImages.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        binding.vpPropImages.setAdapter(new AccommodationPhotoAdapter(images));
+        binding.vpPropImages.setAdapter(new AccommodationPhotoAdapter("detailsPage"));
         binding.vpPropImages.setOffscreenPageLimit(2);
 
         new TabLayoutMediator(binding.layoutTabs, binding.vpPropImages, true, (tab, position) -> {

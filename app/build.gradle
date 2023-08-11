@@ -51,4 +51,7 @@ dependencies {
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics'
 
+    // image picker
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+
 }
