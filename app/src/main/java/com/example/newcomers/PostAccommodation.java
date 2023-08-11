@@ -52,7 +52,7 @@ public class PostAccommodation extends AppCompatActivity implements View.OnClick
 
         initViews();
 
-        fillWithTestInputs();
+//        fillWithTestInputs();
     }
 
     // --- initialize views (eg. set spinner items, set onClickListeners, etc.)
