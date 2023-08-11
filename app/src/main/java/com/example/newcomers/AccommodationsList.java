@@ -1,6 +1,7 @@
 package com.example.newcomers;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,8 +20,10 @@ import android.view.ViewGroup;
 
 import com.example.newcomers.adapters.AccommodationsListAdapter;
 import com.example.newcomers.beans.Accommodation;
+import com.example.newcomers.beans.AccommodationFilters;
 import com.example.newcomers.databinding.FragmentAccommodationsListBinding;
 import com.example.newcomers.interfaces.AccommodationItemListeners;
+import com.example.newcomers.interfaces.AccommodationListeners;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -32,7 +35,7 @@ import java.util.ArrayList;
  * Use the {@link AccommodationsList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccommodationsList extends Fragment implements Toolbar.OnMenuItemClickListener, AccommodationItemListeners {
+public class AccommodationsList extends Fragment implements Toolbar.OnMenuItemClickListener, View.OnClickListener, AccommodationItemListeners, AccommodationListeners {
 
     FragmentAccommodationsListBinding binding;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -40,6 +43,7 @@ public class AccommodationsList extends Fragment implements Toolbar.OnMenuItemCl
     ArrayList<Accommodation> filteredAccommodations = new ArrayList<>();
     AccommodationsListAdapter accommodationsListAdapter;
     final int REQUEST_CODE_POST_ACCOMMODATION = 3244;
+    AccommodationFilters accommodationFilters;
 
     public AccommodationsList() {
     }
@@ -88,6 +92,9 @@ public class AccommodationsList extends Fragment implements Toolbar.OnMenuItemCl
         binding.rvAccommodations.setLayoutManager(layoutManager);
         binding.rvAccommodations.setAdapter(accommodationsListAdapter);
 
+        // --- set click listeners
+        binding.btnMoreFilters.setOnClickListener(this);
+
         // --- set listener on search field change
         binding.edtPostalCode.addTextChangedListener(postalCodeFilterChange);
     }
@@ -122,8 +129,28 @@ public class AccommodationsList extends Fragment implements Toolbar.OnMenuItemCl
         String filterByPostalCode = binding.edtPostalCode.getText().toString();
         filteredAccommodations.clear();
         for (Accommodation accommodation : accommodations) {
-            if (filterByPostalCode.isEmpty() || accommodation.getPostalCode().toLowerCase().contains(filterByPostalCode.toLowerCase()))
-                filteredAccommodations.add(accommodation);
+            if (!filterByPostalCode.isEmpty() && !accommodation.getPostalCode().toLowerCase().contains(filterByPostalCode.toLowerCase()))
+                continue;
+
+            if (accommodationFilters != null) {
+                if (accommodationFilters.startDate != null && accommodation.getStartDate() > accommodationFilters.startDate)
+                    continue;
+
+                if (accommodationFilters.noOfBedrooms != null && accommodation.getNoOfBedrooms() < accommodationFilters.noOfBedrooms)
+                    continue;
+
+                if (accommodationFilters.noOfBathrooms != null && accommodation.getNoOfBathrooms() < accommodationFilters.noOfBathrooms)
+                    continue;
+
+                if (accommodationFilters.minRent != null && accommodation.getRent() < accommodationFilters.minRent)
+                    continue;
+
+                if (accommodationFilters.maxRent != null && accommodation.getRent() > accommodationFilters.maxRent)
+                    continue;
+            }
+
+            filteredAccommodations.add(accommodation);
+
         }
 
         // --- update recycler view list
@@ -184,9 +211,26 @@ public class AccommodationsList extends Fragment implements Toolbar.OnMenuItemCl
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQUEST_CODE_POST_ACCOMMODATION && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CODE_POST_ACCOMMODATION && resultCode == Activity.RESULT_OK) {
             accommodations.clear();
             loadAccommodations(); // --- refresh list
+        }
+    }
+
+    @Override
+    public void onFiltersUpdated(AccommodationFilters accommodationFilters) {
+        this.accommodationFilters = accommodationFilters;
+        applyFilters();
+    }
+
+    @Override
+    public void onClick(View view) {
+        // --- more filters button click
+        if (view == binding.btnMoreFilters) {
+            AccommodationFiltersModal filtersModal = AccommodationFiltersModal.newInstance(accommodationFilters);
+            filtersModal.setListener(this);
+            filtersModal.show(getParentFragmentManager(), "filtersModal");
+            return;
         }
     }
 }

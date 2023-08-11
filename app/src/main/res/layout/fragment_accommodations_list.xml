@@ -26,6 +26,12 @@
         android:layout_gravity="end"
         android:text="@string/more_filters" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary"
+        android:layout_marginTop="8dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAccommodations"
         android:layout_width="match_parent"

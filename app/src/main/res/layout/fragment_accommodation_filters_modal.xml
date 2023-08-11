@@ -20,6 +20,7 @@
             android:textSize="22sp" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClose"
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,6 +91,7 @@
                 android:text="@string/rent" />
 
             <com.google.android.material.slider.RangeSlider
+                android:id="@+id/rangeSliderRent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -99,6 +101,13 @@
                 app:values="@array/initial_rent_range" />
 
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnResetFilters"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_filters" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnApplyFilters"
