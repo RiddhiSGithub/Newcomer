@@ -4,9 +4,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.permissionx.guolindev.PermissionX;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -280,7 +283,19 @@ public class PostAccommodation extends AppCompatActivity implements View.OnClick
 
         // --- upload photos
         if (view == binding.btnUploadPhotos) {
-            Matisse.from(PostAccommodation.this).choose(MimeType.ofImage()).countable(true).maxSelectable(10).imageEngine(new GlideEngine()).showPreview(false).forResult(REQUEST_CODE_IMAGES_PICKER);
+            String externalStoragePermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? android.Manifest.permission.READ_MEDIA_IMAGES : android.Manifest.permission.READ_EXTERNAL_STORAGE;
+            PermissionX.init(this)
+                    .permissions(externalStoragePermission)
+                    .request((allGranted, grantedList, deniedList) -> {
+                                if (!allGranted) {
+                                    Utils.showToast(this, "You must grant permission to upload photos");
+                                    return;
+                                }
+
+                                Matisse.from(PostAccommodation.this).choose(MimeType.ofImage()).countable(true).maxSelectable(10).imageEngine(new GlideEngine()).showPreview(false).forResult(REQUEST_CODE_IMAGES_PICKER);
+                            }
+                    );
+
             return;
         }
 
