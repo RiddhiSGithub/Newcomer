@@ -59,6 +59,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements V
         // --- set back button on toolbar
         binding.actionBar.materialToolbar.setNavigationIcon(R.drawable.baseline_keyboard_backspace_24);
         binding.actionBar.materialToolbar.setNavigationOnClickListener(view -> finish());
+        binding.actionBar.materialToolbar.setTitle(getString(R.string.accommodation_details));
     }
 
     // --- initialize data (eg. load data from server on UI)

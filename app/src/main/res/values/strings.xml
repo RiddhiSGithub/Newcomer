@@ -62,5 +62,9 @@
     <string name="reset_password">Reset Password</string>
     <string name="post">Post</string>
     <string name="ride_details">Ride Details</string>
+    <string name="accommodations">Accommodations</string>
+    <string name="accommodation_details">Accommodation Details</string>
+    <string name="rides">Rides</string>
+    <string name="post_ride">Post Ride</string>
 
 </resources>

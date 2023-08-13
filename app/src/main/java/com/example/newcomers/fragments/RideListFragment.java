@@ -74,10 +74,11 @@ public class RideListFragment extends Fragment implements Toolbar.OnMenuItemClic
     private void initRideListFragment() {
         // --- set navigation menu options
         MaterialToolbar actionBar = getActionBar();
-        actionBar.getMenu().clear(); // clear previous menu items
         if (actionBar != null) {
+            actionBar.getMenu().clear(); // clear previous menu items
             actionBar.inflateMenu(R.menu.rideaction_menu);
             actionBar.setOnMenuItemClickListener(this);
+            actionBar.setTitle(R.string.rides);
         }
 
         getTripList();

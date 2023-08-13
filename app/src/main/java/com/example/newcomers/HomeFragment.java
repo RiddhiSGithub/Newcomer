@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -53,11 +55,33 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+    }
+
+    // --- helper method to find actionbar view
+    MaterialToolbar getActionBar() {
+        MaterialToolbar actionBar = null;
+        ViewGroup viewGroup = getActivity().findViewById(R.id.actionBar);
+        if (viewGroup != null)
+            actionBar = (MaterialToolbar) viewGroup.findViewById(R.id.materialToolbar);
+        return actionBar;
+    }
+
+    // --- initialize views
+    void initViews() {
+        // --- set navigation bar
+        MaterialToolbar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.getMenu().clear(); // clear previous menu items
+            actionBar.setTitle(R.string.home);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        initViews();
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }

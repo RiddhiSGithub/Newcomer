@@ -79,6 +79,7 @@ public class PostAccommodation extends AppCompatActivity implements View.OnClick
         // --- set back button on toolbar
         binding.actionBar.materialToolbar.setNavigationIcon(R.drawable.baseline_keyboard_backspace_24);
         binding.actionBar.materialToolbar.setNavigationOnClickListener(view -> finish());
+        binding.actionBar.materialToolbar.setTitle(R.string.post_accommodation);
     }
 
     // --- validate inputs

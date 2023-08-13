@@ -80,10 +80,11 @@ public class AccommodationsList extends Fragment implements Toolbar.OnMenuItemCl
     void initViews() {
         // --- set navigation menu options
         MaterialToolbar actionBar = getActionBar();
-        actionBar.getMenu().clear(); // clear previous menu items
         if (actionBar != null) {
+            actionBar.getMenu().clear(); // clear previous menu items
             actionBar.inflateMenu(R.menu.accommodations_menu);
             actionBar.setOnMenuItemClickListener(this);
+            actionBar.setTitle(R.string.accommodations);
         }
 
         // --- setup recycler view

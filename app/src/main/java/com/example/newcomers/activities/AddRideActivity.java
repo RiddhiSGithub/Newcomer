@@ -46,6 +46,11 @@ public class AddRideActivity extends AppCompatActivity implements View.OnClickLi
      */
     private void initAddRide() {
         addRideBinding.btnAddNewTrip.setOnClickListener(this);
+
+        // --- set back button on toolbar
+        addRideBinding.actionBar.materialToolbar.setNavigationIcon(R.drawable.baseline_keyboard_backspace_24);
+        addRideBinding.actionBar.materialToolbar.setNavigationOnClickListener(view -> finish());
+        addRideBinding.actionBar.materialToolbar.setTitle(getString(R.string.post_ride));
     }
 
     private void createUSer() {

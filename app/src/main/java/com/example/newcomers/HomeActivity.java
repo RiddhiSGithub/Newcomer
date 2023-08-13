@@ -46,7 +46,6 @@ public class HomeActivity extends AppCompatActivity  {
 
             return true;
         });
-
     }
 
     private void replacefragment(Fragment fragment){

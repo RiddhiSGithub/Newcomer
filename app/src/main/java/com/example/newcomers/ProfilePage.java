@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.newcomers.databinding.FragmentProfilePageBinding;
+import com.google.android.material.appbar.MaterialToolbar;
 
 
 public class ProfilePage extends Fragment implements View.OnClickListener{
@@ -44,8 +45,24 @@ public class ProfilePage extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    // --- helper method to find actionbar view
+    MaterialToolbar getActionBar() {
+        MaterialToolbar actionBar = null;
+        ViewGroup viewGroup = getActivity().findViewById(R.id.actionBar);
+        if (viewGroup != null)
+            actionBar = (MaterialToolbar) viewGroup.findViewById(R.id.materialToolbar);
+        return actionBar;
+    }
+
     private void initProfilePage() {
         profilePageBinding.imgProfilePic.setOnClickListener(this);
+
+        // --- setup navigation bar
+        MaterialToolbar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.getMenu().clear(); // clear previous menu items
+            actionBar.setTitle(R.string.profile);
+        }
     }
 
     @Override
