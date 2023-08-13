@@ -32,12 +32,12 @@ public class RegistrationPage extends AppCompatActivity implements View.OnClickL
     }
 
     public void init() {
-        registrationPageBinding.btnSubmit.setOnClickListener(this);
+        registrationPageBinding.btnRegistration.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == registrationPageBinding.btnSubmit.getId()) {
+        if (v.getId() == registrationPageBinding.btnRegistration.getId()) {
             if (validateInput()) {
                 saveUserData();
                 intentSignIn = new Intent(this, LoginPage.class);

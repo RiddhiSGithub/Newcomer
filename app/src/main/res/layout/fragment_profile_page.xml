@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfilePage">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="60dp"
                 android:gravity="center_horizontal"
                 android:text="@string/profile"
                 android:textColor="@color/secondary"
                 android:textSize="25sp"
-                android:layout_marginTop="60dp"
                 android:textStyle="bold" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgProfilePic"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
                 android:backgroundTint="@color/white"
                 android:cropToPadding="true"
-                android:background="@color/white"
-                android:src="@drawable/account_icon"
-                android:layout_gravity="center_horizontal">
-            </com.google.android.material.imageview.ShapeableImageView>
+                android:src="@drawable/account_icon"></com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayUName"
                 android:layout_width="match_parent"
@@ -52,8 +53,8 @@
                     android:id="@+id/edtUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondary"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/secondary" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -70,8 +71,8 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondary"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/secondary" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -88,8 +89,8 @@
                     android:id="@+id/edtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondary"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/secondary" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textview.MaterialTextView
@@ -97,12 +98,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center_horizontal"
                 android:text="@string/_address"
                 android:textColor="@color/secondary"
                 android:textSize="20sp"
-                android:layout_marginTop="15dp"
                 android:textStyle="bold" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayAddress"
                 android:layout_width="match_parent"
@@ -117,53 +119,52 @@
                     android:id="@+id/edtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:inputType="number"
-                    android:textColor="@color/secondary"
-                    android:layout_marginLeft="10dp"/>
+                    android:textColor="@color/secondary" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="10dp"
+                android:orientation="horizontal">
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtLayCity"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_alignParentLeft="true"
+                    android:layout_weight="1"
                     android:hint="@string/city"
                     android:textColorHint="@color/secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtCity"
-                        android:layout_width="191dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/secondary"
-                        android:layout_marginLeft="10dp"/>
+                        android:textColor="@color/secondary" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtLayProvince"
-                    android:layout_width="192dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_toRightOf="@id/txtLayCity"
+                    android:layout_weight="1"
                     android:hint="@string/province"
                     android:textColorHint="@color/secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtProvince"
-                        android:layout_width="191dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/secondary"
-                        />
+                        android:textColor="@color/secondary" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayPcode"
@@ -179,9 +180,9 @@
                     android:id="@+id/edtPcode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:inputType="number"
-                    android:textColor="@color/secondary"
-                    android:layout_marginLeft="10dp"/>
+                    android:textColor="@color/secondary" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -198,8 +199,8 @@
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondary"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/secondary" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -209,16 +210,16 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
-                android:hint="@string/conform_password"
+                android:hint="@string/confirm_password"
                 android:textColorHint="@color/secondary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtCPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:inputType="number"
-                    android:textColor="@color/secondary"
-                    android:layout_marginLeft="10dp"/>
+                    android:textColor="@color/secondary" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

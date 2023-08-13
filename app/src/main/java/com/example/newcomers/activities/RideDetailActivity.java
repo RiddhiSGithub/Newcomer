@@ -37,6 +37,12 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
      * init Ride Detail
      */
     private void initRideDetail() {
+
+        // --- set back button on toolbar
+        rideDetailBinding.actionBar.materialToolbar.setNavigationIcon(R.drawable.baseline_keyboard_backspace_24);
+        rideDetailBinding.actionBar.materialToolbar.setNavigationOnClickListener(view -> finish());
+        rideDetailBinding.actionBar.materialToolbar.setTitle(R.string.ride_details);
+
         Intent intent = getIntent();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.trip = intent.getSerializableExtra("TRIP_DETAIL",Trip.class);

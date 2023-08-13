@@ -15,8 +15,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     ActivityLoginPageBinding loginPageBinding;
     Intent logInIntent;
 
-    ActivityLoginPageBinding loginPageBinding;
-
     Intent intentLog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
     public void init() {
         loginPageBinding.btnLogIn.setOnClickListener(this);
-        loginPageBinding.btnSignIn.setOnClickListener(this);
+        loginPageBinding.btnSignUp.setOnClickListener(this);
         loginPageBinding.txtForgotPassword.setOnClickListener(this);
     }
 
@@ -42,7 +40,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                 logInIntent = new Intent(this, HomeActivity.class);
                 startActivity(logInIntent);
             }
-        } else if (v.getId() == loginPageBinding.btnSignIn.getId()) {
+        } else if (v.getId() == loginPageBinding.btnSignUp.getId()) {
             logInIntent = new Intent(this, RegistrationPage.class);
             startActivity(logInIntent);
         } else if (v.getId() == loginPageBinding.txtForgotPassword.getId()) {

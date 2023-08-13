@@ -52,13 +52,15 @@
     <string name="_address">Address:</string>
     <string name="street_address">Street Address:</string>
     <string name="save_changes">Save Changes</string>
-    <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="change_password">Change Password</string>
     <string name="sign_in">Sign In</string>
     <string name="post_accommodation">Post Accommodation</string>
     <string name="empty_accommodations_msg">Sorry! No accommodations available as of now!</string>
     <string name="reset_filters">Reset filters</string>
-    <string name="don_t_have_an_account">Don\'t have an Account? Sign-In</string>
+    <string name="don_t_have_an_account">Don\'t have an Account? Sign-Up</string>
     <string name="reset_password">Reset Password</string>
+    <string name="post">Post</string>
+    <string name="ride_details">Ride Details</string>
 
 </resources>

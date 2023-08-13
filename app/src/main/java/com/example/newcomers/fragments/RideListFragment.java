@@ -25,6 +25,7 @@ import com.example.newcomers.beans.Trip;
 import com.example.newcomers.databinding.FragmentRideListBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -58,11 +59,27 @@ public class RideListFragment extends Fragment implements Toolbar.OnMenuItemClic
         return view;
     }
 
+    // --- helper method to find actionbar view
+    MaterialToolbar getActionBar() {
+        MaterialToolbar actionBar = null;
+        ViewGroup viewGroup = getActivity().findViewById(R.id.actionBar);
+        if (viewGroup != null)
+            actionBar = (MaterialToolbar) viewGroup.findViewById(R.id.materialToolbar);
+        return actionBar;
+    }
+
     /**
      * init Ride List Fragment
      */
     private void initRideListFragment() {
-        rideListBinding.actioBar.setOnMenuItemClickListener(this);
+        // --- set navigation menu options
+        MaterialToolbar actionBar = getActionBar();
+        actionBar.getMenu().clear(); // clear previous menu items
+        if (actionBar != null) {
+            actionBar.inflateMenu(R.menu.rideaction_menu);
+            actionBar.setOnMenuItemClickListener(this);
+        }
+
         getTripList();
     }
 
