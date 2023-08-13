@@ -1,6 +1,7 @@
 package com.example.newcomers.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,18 +9,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.newcomers.activities.RideDetailActivity;
 import com.example.newcomers.beans.Trip;
 import com.example.newcomers.databinding.RecordLayoutBinding;
+import com.example.newcomers.fragments.RideListFragment;
 
 import java.util.List;
 
 public class TripListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
    private List<Trip> tripList;
    RecordLayoutBinding recordLayoutBinding;
+   Context context;
 
    public TripListAdapter(List<Trip> tripList, Context context) {
       super();
       this.tripList = tripList;
+      this.context = context;
    }
 
    /**
@@ -90,8 +95,10 @@ public class TripListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
        */
       @Override
       public void onClick(View v) {
-         Log.i("------",v.toString());
-
+         Log.i("------",trip.toString());
+         Intent intent = new Intent(context, RideDetailActivity.class);
+         intent.putExtra("TRIP_DETAIL",trip);
+         context.startActivity(intent);
       }
    }
 }

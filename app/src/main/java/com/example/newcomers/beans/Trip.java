@@ -1,6 +1,8 @@
 package com.example.newcomers.beans;
 
-public class Trip {
+import java.io.Serializable;
+
+public class Trip implements Serializable {
    public String from;
    public String destination;
    public String carModel;
