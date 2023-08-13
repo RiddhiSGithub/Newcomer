@@ -15,6 +15,9 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     ActivityLoginPageBinding loginPageBinding;
     Intent logInIntent;
 
+    ActivityLoginPageBinding loginPageBinding;
+
+    Intent intentLog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
