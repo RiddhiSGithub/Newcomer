@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-permission android:name="android.permission.CAMERA">
+    </uses-permission>
 
     <application
         android:allowBackup="true"
@@ -18,7 +21,7 @@
             android:name=".ForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".LoginPage"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +36,7 @@
             android:name=".activities.AddRideActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginPage"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".RegistrationPage"
