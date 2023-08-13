@@ -77,7 +77,8 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
                     .setPositiveButton("Make Order", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            String msgHaveMade = "You have made this order";
+                            showAlertMsg(msgHaveMade);
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
