@@ -52,6 +52,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
+
+    // image picker
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+
+    // runtime permission manager
+    implementation 'com.guolindev.permissionx:permissionx:1.7.1'
 
     implementation platform('com.google.firebase:firebase-bom:32.2.2')
     // TODO: Add the dependencies for Firebase products you want to use

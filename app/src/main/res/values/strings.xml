@@ -19,7 +19,7 @@
     <string name="wifi">WiFi</string>
     <string name="laundry">Laundry</string>
     <string name="microwave">Microwave</string>
-    <string name="freeze">Freeze</string>
+    <string name="fridge">Fridge</string>
     <string name="oven">Oven</string>
     <string name="water">Water</string>
     <string name="electricity">Electricity</string>
@@ -54,5 +54,8 @@
     <string name="save_changes">Save Changes</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="change_password">Change Password</string>
-    <string name="sign_in">Sigh In</string>
+    <string name="sign_in">Sign In</string>
+    <string name="post_accommodation">Post Accommodation</string>
+    <string name="empty_accommodations_msg">Sorry! No accommodations available as of now!</string>
+    <string name="reset_filters">Reset filters</string>
 </resources>
