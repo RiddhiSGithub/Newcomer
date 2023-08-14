@@ -25,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -92,6 +93,9 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
         rideDetailBinding.btnRideOrder.setOnClickListener(this);
         rideDetailBinding.btnChatOwner.setOnClickListener(this);
         orderBinding.edtOrderDate.setOnClickListener(this);
+
+        // if user didn't have phone, then remove Chat with Owner button
+        rideDetailBinding.btnChatOwner.setVisibility(View.GONE);
     }
 
     /**
@@ -245,6 +249,7 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
         LatLng from = new LatLng(trip.fromLat, trip.fromLng);
         MarkerOptions startMarker = new MarkerOptions().position(from);
         startMarker.title(trip.from);
+        startMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         mMap.addMarker(startMarker);
 
         LatLng dest = new LatLng(trip.destLat, trip.destLng);
@@ -254,6 +259,7 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(from, 8));
 
+        // TODO: 2023/8/14 Add Routes for real project
 //        RoutesSettings routesSettings = null;
 //        try {
 //            routesSettings = RoutesSettings.newBuilder()
