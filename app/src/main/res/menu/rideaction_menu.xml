@@ -8,4 +8,9 @@
         android:title="@string/post"
         app:showAsAction="always"
         />
+    <item
+        android:id="@+id/rideOrder"
+        android:icon="@drawable/car_order_24"
+        android:title="@string/orders"
+        app:showAsAction="always" />
 </menu>

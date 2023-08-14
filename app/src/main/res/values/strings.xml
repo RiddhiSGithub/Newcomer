@@ -62,5 +62,16 @@
     <string name="reset_password">Reset Password</string>
     <string name="post">Post</string>
     <string name="ride_details">Ride Details</string>
+    <string name="from">From</string>
+    <string name="destination">Destination</string>
+    <string name="car_model">Car Model</string>
+    <string name="car_color">Car Color</string>
+    <string name="licence_plate">Licence Plate</string>
+    <string name="seats_remain">Seats Remain</string>
+    <string name="description">Description</string>
+    <string name="add_new_trip">Add New Trip</string>
+    <string name="order_date_is_required">Order Date is required</string>
+    <string name="orders">Orders</string>
+    <string name="my_order_list">My Order List</string>
 
 </resources>

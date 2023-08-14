@@ -55,7 +55,7 @@ public class RideListAdapter extends ArrayAdapter<Trip> {
         recordLayoutBinding.txtFrom.setText(String.valueOf(e.from));
         recordLayoutBinding.txtDestination.setText(String.valueOf(e.destination));
         recordLayoutBinding.txtCarModel.setText(String.valueOf(e.carModel));
-        recordLayoutBinding.txtSeatRemain.setText(e.seatRemain+" Seat Remain");
+        recordLayoutBinding.txtSeatRemain.setText(e.getSeatTotal()-e.getSeatTaken()+"/"+e.getSeatTotal()+" Seat Remain");
         // TODO other Attribute
     }
 

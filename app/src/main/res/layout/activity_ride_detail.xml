@@ -10,92 +10,113 @@
     <include
         android:id="@+id/actionBar"
         layout="@layout/action_bar" />
-
-    <androidx.appcompat.widget.AppCompatTextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
-        android:lines="1"
-        android:text="From:" />
+        android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtDetailFrom"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
-        android:lines="1"
-        android:text="waterloo" />
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
-        android:lines="1"
-        android:text="To:" />
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_marginTop="10dp"
+            >
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="12dp"
+                android:lines="1"
+                android:text="From:" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtDetailDest"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
-        android:lines="1"
-        android:text="misishajia" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtDetailFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:lines="1"
+                android:text="" />
+        </TableRow>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
-        android:lines="1"
-        android:text="Car Model:" />
+        <TableRow
+            android:layout_marginTop="10dp">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="12dp"
+                android:lines="1"
+                android:text="To:" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtDetailCarModel"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
-        android:lines="1"
-        android:text="Ford 2011" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtDetailDest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:lines="1"
+                android:text="" />
+        </TableRow>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
-        android:lines="1"
-        android:text="Car Color:" />
+        <TableRow
+            android:layout_marginTop="10dp">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="12dp"
+                android:lines="1"
+                android:text="Car Model:" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtDetailCarColor"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
-        android:lines="1"
-        android:text="White" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtDetailCarModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:lines="1"
+                android:text="" />
+        </TableRow>
 
+        <TableRow
+            android:layout_marginTop="10dp">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="12dp"
+                android:lines="1"
+                android:text="Car Color:" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtDetailCarColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:lines="1"
+                android:text="" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="10dp">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="12dp"
+                android:text="Seat Remain:" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtSeatRemain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="" />
+        </TableRow>
+    </TableLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:text="Licence Plate:" />
 
     <LinearLayout
@@ -118,57 +139,51 @@
             android:paddingBottom="10dp"
             android:text=""
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="40sp" />
     </LinearLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Seat Remain:" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtSeatRemain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="SeatRemain:" />
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
+        android:layout_marginTop="10dp"
         android:lines="1"
         android:text="Description:" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtDetailDescription"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"
-        android:autoSizeMaxTextSize="36sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeTextType="uniform"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/black"
         android:lines="4"
-        android:text="Ride with me" />
+        android:text="" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRideOrder"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="wrap_content"
         android:text="Make Order">
 
-    </androidx.appcompat.widget.AppCompatButton>
+    </com.google.android.material.button.MaterialButton>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnChatOwner"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_marginBottom="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="Chat With Owner">
 
-    </androidx.appcompat.widget.AppCompatButton>
+    </com.google.android.material.button.MaterialButton>
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="40dp"
+            />
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

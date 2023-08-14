@@ -19,6 +19,7 @@ import android.widget.ListView;
 
 import com.example.newcomers.R;
 import com.example.newcomers.activities.AddRideActivity;
+import com.example.newcomers.activities.RideOrderListActivity;
 import com.example.newcomers.adapters.RideListAdapter;
 import com.example.newcomers.adapters.TripListAdapter;
 import com.example.newcomers.beans.Trip;
@@ -29,6 +30,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,18 @@ public class RideListFragment extends Fragment implements Toolbar.OnMenuItemClic
         return view;
     }
 
+    /**
+     * Called when the fragment is visible to the user and actively running.
+     * This is generally
+     * tied to {@link Activity#onResume() Activity.onResume} of the containing
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.getTripList();
+    }
+
     // --- helper method to find actionbar view
     MaterialToolbar getActionBar() {
         MaterialToolbar actionBar = null;
@@ -79,20 +93,27 @@ public class RideListFragment extends Fragment implements Toolbar.OnMenuItemClic
             actionBar.inflateMenu(R.menu.rideaction_menu);
             actionBar.setOnMenuItemClickListener(this);
         }
-
-        getTripList();
+        //getTripList();
     }
 
+    /**
+     * get Trip List From Firebase
+     */
     private void getTripList() {
-        db.collection("trips")
-                .get()
+        //db.clearPersistence();
+        Source source = Source.SERVER;
+        db.collection("Trips")
+                .get(source)
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            eList.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Trip trip = document.toObject(Trip.class);
+                                trip.setId(document.getId());
+                                Log.d(TAG, trip.toString());
                                 eList.add(trip);
                             }
                             bindAdapter();
@@ -129,6 +150,9 @@ public class RideListFragment extends Fragment implements Toolbar.OnMenuItemClic
             Intent intent = new Intent(this.getActivity(), AddRideActivity.class);
             startActivity(intent);
             return true;
+        } else if (item.getItemId() == R.id.rideOrder) {
+            Intent intent = new Intent(this.getActivity(), RideOrderListActivity.class);
+            startActivity(intent);
         }
         return false;
     }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
+    android:paddingVertical="10dp"
     android:orientation="horizontal">
 
     <com.google.android.material.card.MaterialCardView
@@ -51,36 +52,36 @@
                 android:textAlignment="textEnd" />
 
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:background="?android:attr/listDivider" />
+<!--            <View-->
+<!--                android:id="@+id/divider"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="?android:attr/listDivider" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
+<!--                <ImageView-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp" />-->
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtNickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/txtNickname"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="" />-->
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtSatr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
-            </LinearLayout>
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/txtSatr"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="" />-->
+<!--            </LinearLayout>-->
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

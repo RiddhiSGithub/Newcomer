@@ -82,7 +82,7 @@ public class TripListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          recylerRowBinding.txtFrom.setText(String.valueOf(e.from));
          recylerRowBinding.txtDestination.setText(String.valueOf(e.destination));
          recylerRowBinding.txtCarModel.setText(String.valueOf(e.carModel));
-         recylerRowBinding.txtSeatRemain.setText(e.seatRemain+" Seat Remain");
+         recylerRowBinding.txtSeatRemain.setText(e.getSeatTotal()-e.getSeatTaken()+"/"+e.getSeatTotal()+" Seat Remain");
          // TODO other Attribute
 
          recylerRowBinding.row.setOnClickListener(this);
