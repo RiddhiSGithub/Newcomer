@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class User implements Serializable {
    private int id;
    public String username, emailId, password;
+   public int phoneNumber;
 
    public int getId() {
       return id;
@@ -42,12 +43,21 @@ public class User implements Serializable {
       this.password = password;
    }
 
+   public int getPhoneNumber() {
+      return phoneNumber;
+   }
+
+   public void setPhoneNumber(int phoneNumber) {
+      this.phoneNumber = phoneNumber;
+   }
+
    @Override
    public String toString() {
       return "User{" +
               "id=" + id +
               ", username='" + username + '\'' +
               ", emailId='" + emailId + '\'' +
+              ", phoneNumber='" + phoneNumber + '\'' +
               ", password='" + password + '\'' +
               '}';
    }

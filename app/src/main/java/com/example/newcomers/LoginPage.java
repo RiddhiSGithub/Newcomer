@@ -35,7 +35,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v.getId() == loginPageBinding.btnLogIn.getId()) {
-            // Perform login using Firebase Authentication
             if(validation()){
                 logInIntent = new Intent(this, HomeActivity.class);
                 startActivity(logInIntent);
@@ -53,22 +52,27 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         String username = loginPageBinding.edtUserName.getText().toString();
         String userPassword = loginPageBinding.edtPassword.getText().toString();
 
-        if (username.isEmpty() || userPassword.isEmpty()) {
-            showAlertDialog("Error", "All fields are required.");
+        if (username.isEmpty()) {
+            loginPageBinding.txtLayUName.setError("Please Enter Name.");
+            return false;
+        }else if (!isValidUsername(username)) {
+            loginPageBinding.txtLayUName.setError("Username format is invalid.");
+            return false;
+        }if (userPassword.isEmpty()) {
+            loginPageBinding.txtLayPassword.setError("Please Enter Password.");
             return false;
         }
 
-        DBHelper dbHelper = new DBHelper(this);
-        boolean isValidCredentials = dbHelper.validateCredentials(username, userPassword);
-
-        if (!isValidCredentials) {
-            showAlertDialog("Error", "Invalid username or password.");
-            return false;
-        }
 
         return true; // Validation successful
     }
 
+
+    private boolean isValidUsername(String username) {
+        // Use a regular expression pattern to validate the username format
+        String usernamePattern = "^[a-zA-Z0-9_]+$";
+        return username.matches(usernamePattern);
+    }
 
     private void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
