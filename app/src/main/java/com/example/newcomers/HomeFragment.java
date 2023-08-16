@@ -1,5 +1,6 @@
 package com.example.newcomers;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.newcomers.adapters.AccommodationsListAdapter;
+import com.example.newcomers.adapters.RideListAdapter;
+import com.example.newcomers.adapters.TripListAdapter;
 import com.example.newcomers.beans.Accommodation;
 import com.example.newcomers.beans.Order;
 import com.example.newcomers.beans.Trip;
@@ -26,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
@@ -69,6 +73,7 @@ public class HomeFragment extends Fragment {
 
     }
 
+    //load accomodation list on home page
     private void initACC() {
         db.collection("accommodations")
                 .limit(3)
@@ -94,9 +99,6 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "onFailure: "+e.getMessage()+"----"+e.toString());
                     }
                 });
-
-
-
     }
 
     private void showAccItems() {
@@ -114,6 +116,8 @@ public class HomeFragment extends Fragment {
         ala.setList(acclist);
     }
 
+
+
     private void init() {
         db.collection("accommodations").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) return;
@@ -125,6 +129,7 @@ public class HomeFragment extends Fragment {
         }).addOnFailureListener(e -> {
             Log.w("Error", "Error getting accommodations.", e);
         });
+
     }
 
     private void reloadData() {
@@ -144,12 +149,21 @@ public class HomeFragment extends Fragment {
                                 Log.d(TAG, trip.toString());
                                 list.add(trip);
                             }
-                            //bindAdapter();
+                            bindAdapter();
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
+
+    }
+
+    private void bindAdapter() {
+        TripListAdapter rla = new TripListAdapter(list,this.getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        homeBinding.rcView.setLayoutManager(layoutManager);
+        homeBinding.rcView.setAdapter(rla);
+
 
     }
 
