@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,20 +23,29 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.util.Util;
 import com.example.newcomers.beans.User;
 import com.example.newcomers.databinding.FragmentProfilePageBinding;
+import com.example.newcomers.utils.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.concurrent.CompletableFuture;
 
 public class ProfilePage extends Fragment implements View.OnClickListener {
 
@@ -47,8 +57,8 @@ public class ProfilePage extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
-    private StorageReference storageReference;
-    private FirebaseUser currentUser;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    User user;
 
     public ProfilePage() {
         // Required empty public constructor
@@ -76,11 +86,35 @@ public class ProfilePage extends Fragment implements View.OnClickListener {
     private void initProfilePage() {
 
         mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        mFirestore = FirebaseFirestore.getInstance();
+
+
+        String userID = Utils.getCurrentUserID();
+        if (userID != null) {
+            mFirestore.collection("users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    user = task.getResult().toObject(User.class);
+
+                    profilePageBinding.edtUserName.setText(user.getUsername());
+                    FirebaseUser firebaseUser = Utils.getCurrentUser();
+                    if (firebaseUser != null)
+                        profilePageBinding.edtEmail.setText(firebaseUser.getEmail());
+                    profilePageBinding.edtPhone.setText(user.getPhoneNumber());
+                    profilePageBinding.edtAddress.setText(user.getStreetAddress());
+                    profilePageBinding.edtCity.setText(user.getCity());
+                    profilePageBinding.edtProvince.setText(user.getProvince());
+                    profilePageBinding.edtPcode.setText(user.getPostalCode());
+
+                    loadUserProfileImage();
+                }
+            });
+        }
+
+
         profilePageBinding.imgProfilePic.setOnClickListener(v -> selectImageFromGallery());
-        profilePageBinding.btnSaveChanges.setOnClickListener(this);
-        profilePageBinding.btnLogOut.setOnClickListener(this);
+        profilePageBinding.btnSaveChanges.setOnClickListener(ProfilePage.this);
+        profilePageBinding.btnLogOut.setOnClickListener(ProfilePage.this);
 
         MaterialToolbar actionBar = getActionBar();
         if (actionBar != null) {
@@ -96,6 +130,34 @@ public class ProfilePage extends Fragment implements View.OnClickListener {
         startActivityForResult(Intent.createChooser(galleryIntent, "Select Image"), GALLERY_PICK);
     }
 
+
+    // --- upload photo from URI to firebase storage and get download URL
+    CompletableFuture<Uri> uploadPhoto(Uri uri) {
+        StorageReference storageRef = storage.getReference().child("profile_images");
+        StorageReference fileRef = storageRef.child(System.currentTimeMillis() + ".jpg");
+
+        UploadTask uploadTask = fileRef.putFile(uri);
+
+        CompletableFuture<Uri> future = new CompletableFuture<>();
+
+        uploadTask.addOnFailureListener(exception -> {
+            // Handle unsuccessful uploads
+            Log.e("Error uploading photo", exception.getMessage());
+            future.completeExceptionally(exception);
+        }).addOnSuccessListener(taskSnapshot -> {
+            // Get download URL
+            Task<Uri> urlTask = fileRef.getDownloadUrl();
+            urlTask.addOnSuccessListener(downloadUri -> {
+                future.complete(downloadUri);
+            }).addOnFailureListener(exception -> {
+                future.completeExceptionally(exception);
+            });
+        });
+
+        return future;
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -103,40 +165,39 @@ public class ProfilePage extends Fragment implements View.OnClickListener {
         if (requestCode == GALLERY_PICK && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
 
-            StorageReference filePath = storageReference.child("profile_images").child(currentUser.getUid() + ".jpg");
-
-            filePath.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+            uploadPhoto(imageUri).thenAccept(downloadURL -> {
+                mFirestore.collection("users").document(Utils.getCurrentUserID()).update("profileImage", downloadURL.toString());
                 Toast.makeText(getContext(), "Profile picture uploaded", Toast.LENGTH_SHORT).show();
-                loadUserProfileImage(currentUser.getUid());
-            }).addOnFailureListener(e -> {
+                loadUserProfileImage();
+            }).exceptionally(e -> {
                 Toast.makeText(getContext(), "Failed to upload profile picture", Toast.LENGTH_SHORT).show();
+                return null;
             });
         }
     }
-    private void loadUserProfileImage(String userId) {
-        StorageReference profileImageRef = storageReference.child("profile_images").child(userId + ".jpg");
-        profileImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
 
-            RequestOptions requestOptions = new RequestOptions()
-                    .placeholder(R.drawable.account_icon)
-                    .error(R.drawable.account_icon);
+    private void loadUserProfileImage() {
+        if (user.getProfileImage() == null) return;
 
-            Glide.with(requireContext())
-                    .setDefaultRequestOptions(requestOptions)
-                    .load(uri)
-                    .into(profilePageBinding.imgProfilePic);
-        }).addOnFailureListener(e -> {
-            Toast.makeText(getContext(), "Failed to load profile picture", Toast.LENGTH_SHORT).show();
-        });
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.account_icon)
+                .error(R.drawable.account_icon);
+
+        Glide.with(requireContext())
+                .setDefaultRequestOptions(requestOptions)
+                .load(user.getProfileImage())
+                .into(profilePageBinding.imgProfilePic);
+
     }
-        @Override
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == profilePageBinding.btnSaveChanges.getId()) {
             saveUserData();
         } else if (v.getId() == profilePageBinding.imgProfilePic.getId()) {
             checkPermissionAndOpenCamera();
         }
-        if(v.getId()==profilePageBinding.btnLogOut.getId()){
+        if (v.getId() == profilePageBinding.btnLogOut.getId()) {
             logoutUser();
         }
     }
@@ -229,8 +290,6 @@ public class ProfilePage extends Fragment implements View.OnClickListener {
             mAuth = FirebaseAuth.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
-                mFirestore = FirebaseFirestore.getInstance();
-
                 String newUsername = profilePageBinding.edtUserName.getText().toString();
                 String newPhoneNumber = profilePageBinding.edtPhone.getText().toString();
                 String newAddress = profilePageBinding.edtAddress.getText().toString();
@@ -252,7 +311,6 @@ public class ProfilePage extends Fragment implements View.OnClickListener {
                         .set(updatedUser)
                         .addOnSuccessListener(aVoid -> {
                             Toast.makeText(getContext(), "User data updated successfully", Toast.LENGTH_SHORT).show();
-                            emptyEditField();
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(getContext(), "Failed to update user data", Toast.LENGTH_SHORT).show();
@@ -261,23 +319,8 @@ public class ProfilePage extends Fragment implements View.OnClickListener {
         }
     }
 
-
-    private void emptyEditField() {
-        profilePageBinding.edtUserName.setText("");
-        profilePageBinding.edtPhone.setText("");
-        profilePageBinding.edtEmail.setText("");
-        profilePageBinding.edtAddress.setText("");
-        profilePageBinding.edtCity.setText("");
-        profilePageBinding.edtProvince.setText("");
-        profilePageBinding.edtPcode.setText("");
-    }
-
     private void logoutUser() {
-        // Clear shared preferences
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+        Utils.clearPref(getContext());
 
         FirebaseAuth.getInstance().signOut();
 

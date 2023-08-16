@@ -14,10 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.Util;
 import com.example.newcomers.R;
 import com.example.newcomers.beans.Trip;
 import com.example.newcomers.beans.User;
 import com.example.newcomers.databinding.ActivityAddRideBinding;
+import com.example.newcomers.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -84,6 +86,7 @@ public class AddRideActivity extends AppCompatActivity implements View.OnClickLi
         final Activity that = this;
         Trip trip = new Trip();
         trip.fromId = fromId;
+        trip.userID = Utils.getCurrentUserID();
         trip.fromLat = fromLat;
         trip.fromLng = fromLng;
         trip.destinationId = destId;
@@ -195,29 +198,36 @@ public class AddRideActivity extends AppCompatActivity implements View.OnClickLi
         boolean canSubmit = true;
         if(addRideBinding.edtFrom.length()==0) {
             addRideBinding.edtFrom.setError("From required");
+            addRideBinding.edtFrom.requestFocus();
             canSubmit = false;
         }
         if(addRideBinding.edtDest.length()==0) {
             addRideBinding.edtDest.setError("Destination required");
+            addRideBinding.edtDest.requestFocus();
             canSubmit = false;
         }
         if(addRideBinding.edtCarModel.length()==0) {
             addRideBinding.edtCarModel.setError("Car Model required");
+            addRideBinding.edtCarModel.requestFocus();
             canSubmit = false;
         }
         if(addRideBinding.edtCarColor.length()==0) {
             addRideBinding.edtCarColor.setError("Car Color required");
+            addRideBinding.edtCarColor.requestFocus();
             canSubmit = false;
         }
         if(addRideBinding.edtLicencePlate.length()==0) {
             addRideBinding.edtLicencePlate.setError("Licence Plate required");
+            addRideBinding.edtLicencePlate.requestFocus();
             canSubmit = false;
         }
         if(addRideBinding.edtSeatRemain.length()==0) {
             addRideBinding.edtSeatRemain.setError("Seat Remain required");
+            addRideBinding.edtSeatRemain.requestFocus();
             canSubmit = false;
         }else if(Integer.parseInt(addRideBinding.edtSeatRemain.getText().toString().trim())<1) {
             addRideBinding.edtSeatRemain.setError("Seat Remain must greater than 1");
+            addRideBinding.edtSeatRemain.requestFocus();
             canSubmit = false;
         }
         return canSubmit;

@@ -19,6 +19,8 @@ import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,12 +42,17 @@ public class Utils {
 
     // --- get shared preference
     private static SharedPreferences getSharedPref(Context context) {
-        return context.getSharedPreferences("JK_GROCERY", Context.MODE_PRIVATE);
+        return context.getSharedPreferences("NewComers", Context.MODE_PRIVATE);
     }
 
     // --- save data to shared preferences
     public static void savePref(Context context, String key, String value) {
         getSharedPref(context).edit().putString(key, value).apply();
+    }
+
+    // --- save data to shared preferences
+    public static void savePref(Context context, String key, Boolean value) {
+        getSharedPref(context).edit().putBoolean(key, value).apply();
     }
 
     // --- get data from shared preferences
@@ -57,6 +64,8 @@ public class Utils {
                 return type.cast(preferences.getString(key, null));
             } else if (type.getSimpleName().equals(int.class.getSimpleName()))
                 return type.cast(preferences.getInt(key, -1));
+            else if (type.getSimpleName().equals(Boolean.class.getSimpleName()))
+                return type.cast(preferences.getBoolean(key, false));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,6 +76,11 @@ public class Utils {
     // --- remove data from shared preferences
     public static void removePref(Context context, String key) {
         getSharedPref(context).edit().remove(key).apply();
+    }
+
+    // --- clear all preferences
+    public static void clearPref(Context context) {
+        getSharedPref(context).edit().clear().apply();
     }
 
     // --- utility method to convert string to integer, returns null if string is not a valid integer
@@ -144,5 +158,19 @@ public class Utils {
     // --- make call to the given number
     public static void makeCall(Context context, String number) {
         context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number)));
+    }
+
+    // --- get current user id
+    public static String getCurrentUserID() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser != null) return firebaseUser.getUid();
+        else return null;
+    }
+
+    // --- get currently logged in user
+    public static FirebaseUser getCurrentUser() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        return firebaseAuth.getCurrentUser();
     }
 }

@@ -159,7 +159,9 @@ public class HomeFragment extends Fragment  implements Toolbar.OnMenuItemClickLi
         AccommodationsListAdapter ala = new AccommodationsListAdapter(new AccommodationItemListeners() {
             @Override
             public void onItemClick(Accommodation accommodation) {
-                Log.d(TAG, "onItemClick: item clicked");
+                Intent intent = new Intent(getActivity(), AccommodationDetailsActivity.class);
+                intent.putExtra("accommodation", accommodation);
+                startActivity(intent);
             }
         });
         Log.d(TAG, "set list: "+ acclist.size());

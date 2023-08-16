@@ -16,11 +16,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.Util;
 import com.example.newcomers.R;
 import com.example.newcomers.beans.Order;
 import com.example.newcomers.beans.Trip;
 import com.example.newcomers.databinding.ActivityRideDetailBinding;
 import com.example.newcomers.databinding.EdittextOrderBinding;
+import com.example.newcomers.utils.Utils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,6 +32,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -39,6 +42,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * Ride Detail Activity
@@ -49,6 +53,7 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
     EdittextOrderBinding orderBinding;
     Trip trip;
     private GoogleMap mMap;
+    Calendar startDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,15 +149,19 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
             int year = mCalendar.get(Calendar.YEAR);
             int month = mCalendar.get(Calendar.MONTH);
             int dayOfMonth = mCalendar.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            Utils.showMaterialDatePickerDialog(getSupportFragmentManager(), System.currentTimeMillis(), startDate.getTimeInMillis(), new MaterialPickerOnPositiveButtonClickListener() {
                 @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    orderBinding.edtOrderDate.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+                public void onPositiveButtonClick(Object selection) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeZone(TimeZone.getTimeZone("utc"));
+                    calendar.setTimeInMillis((Long) selection);
+                    startDate = calendar;
+
+                    orderBinding.edtOrderDate.setText(Utils.formatDate(startDate));
                     orderBinding.edtOrderDate.setError(null);
                 }
-            }, year, month, dayOfMonth);
-            datePickerDialog.getDatePicker().setMinDate((new Date()).getTime());
-            datePickerDialog.show();
+            });
         }
     }
 
@@ -168,7 +177,7 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
 
         Order order = new Order();
         this.trip.seatTaken += 1;
-        order.orderUserID = "XXXX-OOOO";
+        order.orderUserID = Utils.getCurrentUserID();
         order.setOrderTrip(this.trip);
         order.orderDate = orderBinding.edtOrderDate.getText().toString().trim();
         order.flightNumber = orderBinding.edtFlightNo.getText().toString().trim();
@@ -191,7 +200,7 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
                 });
         db.collection("Trips")
                 .document(this.trip.id)
-                .update("seatTaken",trip.getSeatTaken()+3)
+                .update("seatTaken",trip.getSeatTaken())
                 //.set(this.trip)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -29,7 +29,7 @@ tools:context=".HomeActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAccommodations"
         android:layout_width="match_parent"
-        android:layout_height="418dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_weight="1"
         tools:itemCount="3"
@@ -43,13 +43,13 @@ tools:context=".HomeActivity">
         android:text="Promoted Rides"
         android:textColor="@color/primary"
         android:textSize="20sp"
+        android:layout_marginTop="12dp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcView"
         android:layout_width="match_parent"
-        android:layout_height="418dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:itemCount="3"
         tools:listitem="@layout/record_layout" />

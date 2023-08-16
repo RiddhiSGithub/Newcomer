@@ -15,6 +15,7 @@ import com.example.newcomers.adapters.RideOrderListAdapter;
 import com.example.newcomers.beans.Order;
 import com.example.newcomers.beans.Trip;
 import com.example.newcomers.databinding.ActivityRideOrderListBinding;
+import com.example.newcomers.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -65,7 +66,7 @@ public class RideOrderListActivity extends AppCompatActivity {
      * reload Data
      */
     private void reloadData() {
-        String userId = "XXXX-OOOO";
+        String userId = Utils.getCurrentUserID();
         FirebaseFirestore.getInstance().collection("Orders")
                 .orderBy("orderDate", Query.Direction.DESCENDING)
                 .whereEqualTo("orderUserID",userId)

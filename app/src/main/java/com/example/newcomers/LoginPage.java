@@ -9,7 +9,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.util.Util;
 import com.example.newcomers.databinding.ActivityLoginPageBinding;
+import com.example.newcomers.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,7 +23,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
     private ActivityLoginPageBinding loginPageBinding;
     private FirebaseAuth mAuth;
-    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +32,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         setContentView(view);
 
         mAuth = FirebaseAuth.getInstance();
-        sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
 
-        if (isLoggedIn()) {
+        if (Utils.getCurrentUserID() != null) {
             navigateToHome();
         }
 
@@ -77,7 +77,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            saveLoginStatus(true);
                             navigateToHome();
                         } else {
                             Exception exception = task.getException();
@@ -90,16 +89,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                         }
                     }
                 });
-    }
-
-    private void saveLoginStatus(boolean isLoggedIn) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isLoggedIn", isLoggedIn);
-        editor.apply();
-    }
-
-    private boolean isLoggedIn() {
-        return sharedPreferences.getBoolean("isLoggedIn", false);
     }
 
     private void navigateToHome() {

@@ -53,6 +53,15 @@ public class User implements Serializable {
 
    private String postalCode;
    private String phoneNumber;
+   private String profileImage;
+
+   public String getProfileImage() {
+      return profileImage;
+   }
+
+   public void setProfileImage(String profileImage) {
+      this.profileImage = profileImage;
+   }
 
    public User() {
       id = ++latestId;

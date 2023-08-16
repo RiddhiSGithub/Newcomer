@@ -1,12 +1,15 @@
 package com.example.newcomers;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.util.Util;
 import com.example.newcomers.databinding.ActivityForgotPasswordBinding;
+import com.example.newcomers.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -44,22 +47,12 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
     private void resetPassword() {
         String email = forgotPasswordBinding.edtEmail.getText().toString();
-
-        mFirestore.collection("users")
-                .whereEqualTo("emailId", email)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
-                        mAuth.sendPasswordResetEmail(email)
-                                .addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()) {
-                                        showAlertDialog("Success", "Password reset email sent.");
-                                    } else {
-                                        showAlertDialog("Error", "Error sending password reset email.");
-                                    }
-                                });
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
+                        showAlertDialog("Success", "Password reset email sent.");
                     } else {
-                        showAlertDialog("Error", "User with this email does not exist.");
+                        showAlertDialog("Error", "Error sending password reset email.");
                     }
                 });
     }
@@ -76,10 +69,11 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showAlertDialog(String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", null)
-                .show();
+        Utils.showMaterialAlertDialog(this, getString(R.string.app_name), message, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
     }
 }
