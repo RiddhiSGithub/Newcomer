@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "834734713015",
+    "firebase_url": "https://newcomers-prog8485-default-rtdb.firebaseio.com",
     "project_id": "newcomers-prog8485",
     "storage_bucket": "newcomers-prog8485.appspot.com"
   },
@@ -14,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "834734713015-jq6ggd6431rqt3t6cno2og5ss6k6qqdm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newcomers",
+            "certificate_hash": "764e622a6461365ee385d3ff2a14edf6c37ed43a"
+          }
+        },
+        {
           "client_id": "834734713015-mcjqpsace5ff3nqfnipi7ko7i8apbhlp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.newcomers",
             "certificate_hash": "f85da0160aac46805acfe4aa474b7e7a3c88b433"
+          }
+        },
+        {
+          "client_id": "834734713015-q9gvhhvpsbl6j6kr69ncjipp0uf46acd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newcomers",
+            "certificate_hash": "65d9a2c7b89f2516e119fb855e898145f028f469"
           }
         },
         {

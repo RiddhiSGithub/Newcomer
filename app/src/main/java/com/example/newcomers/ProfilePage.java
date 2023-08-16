@@ -1,64 +1,88 @@
 package com.example.newcomers;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfilePage#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ProfilePage extends Fragment {
+import com.example.newcomers.databinding.FragmentProfilePageBinding;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class ProfilePage extends Fragment implements View.OnClickListener{
 
+    FragmentProfilePageBinding profilePageBinding;
+    Intent intentProfilePage;
     public ProfilePage() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfilePage.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfilePage newInstance(String param1, String param2) {
-        ProfilePage fragment = new ProfilePage();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_page, container, false);
+//        return inflater.inflate(R.layout.fragment_profile_page, container, false);
+        profilePageBinding = FragmentProfilePageBinding.inflate(inflater, container, false);
+        View view = profilePageBinding.getRoot();
+
+
+        initProfilePage(); // Call the init method here
+        return view;
+    }
+
+    private void initProfilePage() {
+        profilePageBinding.imgProfilePic.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == profilePageBinding.btnSaveChanges.getId()){
+            //add validation
+            if (v.getId() == profilePageBinding.imgProfilePic.getId()) {
+                checkPermissionAndOpenCamera(); // Check permissions and open the camera
+            } else {
+                captureImage(); // Capture an image using the camera
+            }
+        }
+    }
+
+    private void captureImage() {
+        intentProfilePage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startForResult.launch(intentProfilePage);
+    }
+
+    // Activity result launcher for camera intent
+    ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result != null && result.getResultCode() == RESULT_OK) {
+                if (result.getData() != null) {
+                    Bundle extras = result.getData().getExtras();
+                    Bitmap photo = (Bitmap) extras.get("data");
+                    profilePageBinding.imgProfilePic.setImageBitmap(photo); // Set the captured image to the ImageView
+                }
+            }
+        }
+    });
+
+    // Check permission and open the camera
+    private void checkPermissionAndOpenCamera() {
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 5); // Request camera permission
+        }
     }
 }

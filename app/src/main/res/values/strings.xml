@@ -57,4 +57,5 @@
     <string name="post_accommodation">Post Accommodation</string>
     <string name="empty_accommodations_msg">Sorry! No accommodations available as of now!</string>
     <string name="reset_filters">Reset filters</string>
+    <string name="sign_in">Sign In</string>
 </resources>
