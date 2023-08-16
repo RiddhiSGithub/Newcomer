@@ -63,11 +63,6 @@ public class HomeFragment extends Fragment  implements Toolbar.OnMenuItemClickLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
 
     @Override
@@ -229,15 +224,5 @@ public class HomeFragment extends Fragment  implements Toolbar.OnMenuItemClickLi
     void loadAccommodations() {
         // --- load accommodations list
 
-    }
-
-
-    // --- helper method to find actionbar view
-    MaterialToolbar getActionBar() {
-        MaterialToolbar actionBar = null;
-        ViewGroup viewGroup = getActivity().findViewById(R.id.actionBar);
-        if (viewGroup != null)
-            actionBar = (MaterialToolbar) viewGroup.findViewById(R.id.materialToolbar);
-        return actionBar;
     }
 }
