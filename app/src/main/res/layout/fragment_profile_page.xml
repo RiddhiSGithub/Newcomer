@@ -37,13 +37,14 @@
                 android:background="@color/white"
                 android:backgroundTint="@color/white"
                 android:cropToPadding="true"
+                app:shapeAppearanceOverlay="@drawable/round_border"
                 android:src="@drawable/account_icon"></com.google.android.material.imageview.ShapeableImageView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayUName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:hint="@string/user_name"
@@ -60,7 +61,7 @@
                 android:id="@+id/txtLayEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:hint="@string/e_mail"
@@ -70,14 +71,15 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondary" />
+                    android:textColor="@color/secondary"
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:hint="@string/phone_number"
@@ -87,7 +89,8 @@
                     android:id="@+id/edtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondary" />
+                    android:textColor="@color/secondary"
+                    android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textview.MaterialTextView
@@ -106,7 +109,7 @@
                 android:id="@+id/txtLayAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:hint="@string/street_address"
@@ -116,7 +119,7 @@
                     android:id="@+id/edtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:textColor="@color/secondary" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:paddingHorizontal="10dp"
+                android:paddingHorizontal="5dp"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -140,7 +143,8 @@
                         android:id="@+id/edtCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/secondary" />
+                        android:textColor="@color/secondary"
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -157,7 +161,8 @@
                         android:id="@+id/edtProvince"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/secondary" />
+                        android:textColor="@color/secondary"
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -166,7 +171,7 @@
                 android:id="@+id/txtLayPcode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:hint="@string/postal_code"
@@ -188,6 +193,18 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/save_changes"
+                android:textColor="@color/secondary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnLogOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/log_out"
                 android:textColor="@color/secondary"
                 android:textSize="20sp"
                 android:textStyle="bold" />

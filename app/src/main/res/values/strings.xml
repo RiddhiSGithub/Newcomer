@@ -66,5 +66,15 @@
     <string name="accommodation_details">Accommodation Details</string>
     <string name="rides">Rides</string>
     <string name="post_ride">Post Ride</string>
+    <string name="user_email">User Email</string>
+    <string name="log_out">Log Out</string>
+    <string name="action_info">Info\n</string>
+    <string name="about_us_title">About Us</string>
+    <string name="about_us_description"> <b>Welcome to our app!</b> We are dedicated to \n
+                                        providing you with the best experience \n
+                                        and features to help you connect and \n
+                                        communicate with others. Our goal is to \n
+                                        make your interactions seamless and enjoyable.\n \n
+        <b>Made by:\nRiddhiben Makwana\nJaydip Kalkani\nMang Wang\nDipali Shaini</b></string>
 
 </resources>

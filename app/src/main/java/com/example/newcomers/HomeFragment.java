@@ -1,12 +1,16 @@
 package com.example.newcomers;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -15,7 +19,7 @@ import com.google.android.material.appbar.MaterialToolbar;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment  implements Toolbar.OnMenuItemClickListener  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +62,26 @@ public class HomeFragment extends Fragment {
 
     }
 
-    // --- helper method to find actionbar view
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initViews();
+
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.action_info) {
+            Intent intent = new Intent(getActivity(), AboutUsActivity.class);
+            getActivity().startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+        // --- helper method to find actionbar view
     MaterialToolbar getActionBar() {
         MaterialToolbar actionBar = null;
         ViewGroup viewGroup = getActivity().findViewById(R.id.actionBar);
@@ -74,6 +97,8 @@ public class HomeFragment extends Fragment {
         if (actionBar != null) {
             actionBar.getMenu().clear(); // clear previous menu items
             actionBar.setTitle(R.string.home);
+            actionBar.inflateMenu(R.menu.menu_info);
+            actionBar.setOnMenuItemClickListener(this::onMenuItemClick);
         }
     }
 

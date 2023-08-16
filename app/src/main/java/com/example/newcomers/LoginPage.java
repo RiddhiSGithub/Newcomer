@@ -1,21 +1,28 @@
 package com.example.newcomers;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.newcomers.databinding.ActivityLoginPageBinding;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.newcomers.databinding.ActivityLoginPageBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class LoginPage extends AppCompatActivity implements View.OnClickListener {
 
-    ActivityLoginPageBinding loginPageBinding;
-    Intent logInIntent;
+    private ActivityLoginPageBinding loginPageBinding;
+    private FirebaseAuth mAuth;
+    private SharedPreferences sharedPreferences;
 
-    Intent intentLog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +30,17 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         View view = loginPageBinding.getRoot();
         setContentView(view);
 
+        mAuth = FirebaseAuth.getInstance();
+        sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+
+        if (isLoggedIn()) {
+            navigateToHome();
+        }
+
         init();
     }
 
-    public void init() {
+    private void init() {
         loginPageBinding.btnLogIn.setOnClickListener(this);
         loginPageBinding.btnSignUp.setOnClickListener(this);
         loginPageBinding.txtForgotPassword.setOnClickListener(this);
@@ -35,50 +49,70 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v.getId() == loginPageBinding.btnLogIn.getId()) {
-            if(validation()){
-                logInIntent = new Intent(this, HomeActivity.class);
-                startActivity(logInIntent);
-            }
+            validateAndLogin();
         } else if (v.getId() == loginPageBinding.btnSignUp.getId()) {
-            logInIntent = new Intent(this, RegistrationPage.class);
-            startActivity(logInIntent);
+            Intent signUpIntent = new Intent(this, RegistrationPage.class);
+            startActivity(signUpIntent);
         } else if (v.getId() == loginPageBinding.txtForgotPassword.getId()) {
-            logInIntent = new Intent(this, ForgotPassword.class);
-            startActivity(logInIntent);
+            Intent forgotPasswordIntent = new Intent(this, ForgotPassword.class);
+            startActivity(forgotPasswordIntent);
         }
     }
 
-    private boolean validation() {
-        String username = loginPageBinding.edtUserName.getText().toString();
-        String userPassword = loginPageBinding.edtPassword.getText().toString();
+    private void validateAndLogin() {
+        String email = loginPageBinding.edtUserEmail.getText().toString();
+        String password = loginPageBinding.edtPassword.getText().toString();
 
-        if (username.isEmpty()) {
-            loginPageBinding.txtLayUName.setError("Please Enter Name.");
-            return false;
-        }else if (!isValidUsername(username)) {
-            loginPageBinding.txtLayUName.setError("Username format is invalid.");
-            return false;
-        }if (userPassword.isEmpty()) {
+        if (email.isEmpty()) {
+            loginPageBinding.txtLayUEmail.setError("Please Enter Email.");
+            return;
+        }
+        if (password.isEmpty()) {
             loginPageBinding.txtLayPassword.setError("Please Enter Password.");
-            return false;
+            return;
         }
 
-
-        return true; // Validation successful
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            saveLoginStatus(true);
+                            navigateToHome();
+                        } else {
+                            Exception exception = task.getException();
+                            if (exception instanceof FirebaseAuthInvalidUserException
+                                    || exception instanceof FirebaseAuthInvalidCredentialsException) {
+                                showAlertDialog("Login Error", "Invalid email or password.");
+                            } else {
+                                showAlertDialog("Login Error", "An error occurred during login.");
+                            }
+                        }
+                    }
+                });
     }
 
+    private void saveLoginStatus(boolean isLoggedIn) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isLoggedIn", isLoggedIn);
+        editor.apply();
+    }
 
-    private boolean isValidUsername(String username) {
-        // Use a regular expression pattern to validate the username format
-        String usernamePattern = "^[a-zA-Z0-9_]+$";
-        return username.matches(usernamePattern);
+    private boolean isLoggedIn() {
+        return sharedPreferences.getBoolean("isLoggedIn", false);
+    }
+
+    private void navigateToHome() {
+        Intent homeIntent = new Intent(LoginPage.this, HomeActivity.class);
+        startActivity(homeIntent);
+        finish();
     }
 
     private void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK", null) // You can add a listener if needed
+                .setPositiveButton("OK", null)
                 .show();
     }
 }

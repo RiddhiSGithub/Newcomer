@@ -4,12 +4,59 @@ import java.io.Serializable;
 
 /**
  * User bean
- * Author:Meng
+ * Author: Meng
+ *
  */
 public class User implements Serializable {
+   private static int latestId = 0;
+
    private int id;
-   public String username, emailId, password;
-   public int phoneNumber;
+   private String username;
+
+   public String getStreetAddress() {
+      return streetAddress;
+   }
+
+   public void setStreetAddress(String streetAddress) {
+      this.streetAddress = streetAddress;
+   }
+
+   private String streetAddress;
+
+   public String getCity() {
+      return city;
+   }
+
+   public void setCity(String city) {
+      this.city = city;
+   }
+
+   private String city;
+
+   public String getProvince() {
+      return province;
+   }
+
+   public void setProvince(String province) {
+      this.province = province;
+   }
+
+   private String province;
+
+   public String getPostalCode() {
+      return postalCode;
+   }
+
+   public void setPostalCode(String postalCode) {
+      this.postalCode = postalCode;
+   }
+
+   private String postalCode;
+   private String phoneNumber;
+
+   public User() {
+      id = ++latestId;
+   }
 
    public int getId() {
       return id;
@@ -27,27 +74,11 @@ public class User implements Serializable {
       this.username = username;
    }
 
-   public String getEmailId() {
-      return emailId;
-   }
-
-   public void setEmailId(String emailId) {
-      this.emailId = emailId;
-   }
-
-   public String getPassword() {
-      return password;
-   }
-
-   public void setPassword(String password) {
-      this.password = password;
-   }
-
-   public int getPhoneNumber() {
+   public String getPhoneNumber() {
       return phoneNumber;
    }
 
-   public void setPhoneNumber(int phoneNumber) {
+   public void setPhoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
    }
 
@@ -56,9 +87,11 @@ public class User implements Serializable {
       return "User{" +
               "id=" + id +
               ", username='" + username + '\'' +
-              ", emailId='" + emailId + '\'' +
               ", phoneNumber='" + phoneNumber + '\'' +
-              ", password='" + password + '\'' +
+              ", Street Address='" + streetAddress + '\'' +
+              ", city='" + city + '\'' +
+              ", province='" + province + '\'' +
+              ", postal code='" + postalCode + '\'' +
               '}';
    }
 }
