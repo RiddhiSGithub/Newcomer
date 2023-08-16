@@ -117,7 +117,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
-            android:hint="@string/conform_password"
+            android:hint="@string/confirm_password"
             android:textColorHint="@color/secondary">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -129,8 +129,8 @@
                 android:layout_marginLeft="10dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnSubmit"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegistration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

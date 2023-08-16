@@ -46,16 +46,32 @@
     <string name="user_name">User Name:</string>
     <string name="phone_number">Phone Number:</string>
     <string name="password">Password:</string>
-    <string name="conform_password">Conform Password:</string>
+    <string name="conform_password">Confirm Password:</string>
     <string name="log_in">Log-In</string>
     <string name="profile">Profile</string>
     <string name="_address">Address:</string>
     <string name="street_address">Street Address:</string>
     <string name="save_changes">Save Changes</string>
-    <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="change_password">Change Password</string>
+    <string name="sign_in">Sign In</string>
     <string name="post_accommodation">Post Accommodation</string>
     <string name="empty_accommodations_msg">Sorry! No accommodations available as of now!</string>
     <string name="reset_filters">Reset filters</string>
-    <string name="sign_in">Sign In</string>
+    <string name="don_t_have_an_account">Don\'t have an Account? Sign-Up</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="post">Post</string>
+    <string name="ride_details">Ride Details</string>
+    <string name="from">From</string>
+    <string name="destination">Destination</string>
+    <string name="car_model">Car Model</string>
+    <string name="car_color">Car Color</string>
+    <string name="licence_plate">Licence Plate</string>
+    <string name="seats_remain">Seats Remain</string>
+    <string name="description">Description</string>
+    <string name="add_new_trip">Add New Trip</string>
+    <string name="order_date_is_required">Order Date is required</string>
+    <string name="orders">Orders</string>
+    <string name="my_order_list">My Order List</string>
+
 </resources>

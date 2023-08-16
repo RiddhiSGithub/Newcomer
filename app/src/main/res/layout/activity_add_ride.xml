@@ -23,25 +23,33 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtFrom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="From" />
+                    android:allowClickWhenDisabled="true"
+                    android:enabled="false"
+                    android:drawableEnd="@drawable/add_location_24"
+                    android:hint="@string/from" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtDest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Destination" />
+                    android:allowClickWhenDisabled="true"
+                    android:enabled="false"
+                    android:drawableEnd="@drawable/add_location_24"
+                    android:hint="@string/destination" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +61,7 @@
                     android:id="@+id/edtCarModel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Car Model" />
+                    android:hint="@string/car_model" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +73,7 @@
                     android:id="@+id/edtCarColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Car Color" />
+                    android:hint="@string/car_color" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,7 +85,7 @@
                     android:id="@+id/edtLicencePlate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Licence Plate" />
+                    android:hint="@string/licence_plate" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:hint="Seats Remain" />
+                    android:hint="@string/seats_remain" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,7 +111,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="4"
-                    android:hint="Description" />
+                    android:gravity="top|left"
+                    android:hint="@string/description" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add New Trip" />
+                android:text="@string/add_new_trip" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -81,10 +81,10 @@
             android:gravity="center_horizontal"
             android:text="@string/forgot_password"
             android:textColor="@color/secondary"
+            android:backgroundTint="@color/white"
             android:textSize="15sp"
             android:layout_marginTop="15dp"
             android:textStyle="bold" />
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogIn"
@@ -99,16 +99,16 @@
             android:textStyle="bold"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSignIn"
-            android:layout_width="match_parent"
+            android:id="@+id/btnSignUp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/sign_in"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/white"
+            android:text="@string/don_t_have_an_account"
             android:textColor="@color/secondary"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textSize="15sp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
