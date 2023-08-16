@@ -21,8 +21,8 @@ public class HomeActivity extends AppCompatActivity  {
         //setContentView(R.layout.activity_home);
         homeBinding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(homeBinding.getRoot());
-
-        final int acco = R.id.acco;
+        replacefragment(new HomeFragment());
+        final int acco = R.id.home;
 
         homeBinding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if(item.getItemId() == R.id.home)

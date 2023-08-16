@@ -46,7 +46,7 @@
     <string name="user_name">User Name:</string>
     <string name="phone_number">Phone Number:</string>
     <string name="password">Password:</string>
-    <string name="conform_password">Confirm Password:</string>
+    <string name="confirm_password">Confirm Password:</string>
     <string name="log_in">Log-In</string>
     <string name="profile">Profile</string>
     <string name="_address">Address:</string>
