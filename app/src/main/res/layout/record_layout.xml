@@ -59,27 +59,34 @@
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_gravity="end"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txtNickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:text="" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtSatr"
-                    android:layout_width="wrap_content"
+                <View
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    />
+
+                <ImageView
+                    android:id="@+id/ivUserHeader"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
+
+
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

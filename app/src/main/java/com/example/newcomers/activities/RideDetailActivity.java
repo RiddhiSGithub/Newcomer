@@ -189,6 +189,7 @@ public class RideDetailActivity extends AppCompatActivity implements View.OnClic
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("RideDetailActivity", "DocumentSnapshot added with ID: " + documentReference.getId());
                         Toast.makeText(RideDetailActivity.this, "Order Add Successfully", Toast.LENGTH_SHORT).show();
+                        initRideDetail();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

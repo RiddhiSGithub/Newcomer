@@ -2,19 +2,31 @@ package com.example.newcomers.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newcomers.activities.RideDetailActivity;
 import com.example.newcomers.beans.Trip;
+import com.example.newcomers.beans.User;
 import com.example.newcomers.databinding.RecordLayoutBinding;
 import com.example.newcomers.fragments.RideListFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class TripListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
    private List<Trip> tripList;
@@ -84,6 +96,41 @@ public class TripListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          recylerRowBinding.txtCarModel.setText(String.valueOf(e.carModel));
          recylerRowBinding.txtSeatRemain.setText(e.getSeatTotal()-e.getSeatTaken()+"/"+e.getSeatTotal()+" Seat Remain");
          // TODO other Attribute
+
+         FirebaseFirestore.getInstance().collection("users")
+                         .document(e.getUserID())
+                        .get()
+                       .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                          @Override
+                          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                              if(task.isSuccessful()) {
+                                 DocumentSnapshot user = task.getResult();
+                                 User u = user.toObject(User.class);
+                                 Log.d("----", "onComplete: "+u.toString());
+                                 if(u != null && u.getUsername() != null) {
+
+                                    recylerRowBinding.txtNickname.setText(u.getUsername());
+                                    if(u.getProfileImage()!=null && u.getProfileImage().startsWith("http")) {
+
+                                       Picasso.get()
+                                               .load(u.getProfileImage())
+                                               .resize(50, 50)
+                                               .centerCrop()
+                                               .transform(new RoundedCornersTransformation(25,0))
+                                               .into(recylerRowBinding.ivUserHeader);
+                                    }
+                                 }
+                              }
+                          }
+                       })
+                      .addOnFailureListener(new OnFailureListener() {
+                         @Override
+                         public void onFailure(@NonNull Exception e) {
+
+                         }
+                      });
+
+
 
          recylerRowBinding.row.setOnClickListener(this);
       }
